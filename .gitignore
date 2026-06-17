@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Logs and runtime diagnostics
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test and coverage output
+coverage/
+.nyc_output/
+
+# Build, packaging, and temporary output
+dist/
+build/
+out/
+tmp/
+temp/
+.cache/
+*.tgz
+
+# Native/binary artifacts generated during local experiments
+*.node
+*.dylib
+*.so
+*.dll
+*.exe
+
+# Editor and OS metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local tool state
+.eslintcache
+.npm/
+.pnpm-store/

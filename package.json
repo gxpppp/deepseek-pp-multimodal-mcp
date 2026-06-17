@@ -1,0 +1,27 @@
+{
+  "name": "deepseek-pp-multimodal-mcp",
+  "version": "0.1.0",
+  "description": "Native Messaging MCP host that gives DeepSeek++ OpenAI image analysis and Gemini video analysis tools.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "deepseek-pp-multimodal-mcp": "bin/deepseek-pp-multimodal-mcp.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "native/",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "smoke:native": "node test/native-smoke.test.mjs"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
