@@ -59,7 +59,7 @@ test('lists multimodal tools', async () => {
   });
 
   const toolNames = response.result.tools.map((tool) => tool.name);
-  assert.deepEqual(toolNames, ['vision_status', 'analyze_images', 'analyze_video']);
+  assert.deepEqual(toolNames, ['vision_status', 'analyze_images', 'analyze_video', 'analyze_images_siliconflow', 'analyze_video_siliconflow']);
 });
 
 test('reports status without uploading media', async () => {
