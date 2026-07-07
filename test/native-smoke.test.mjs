@@ -295,6 +295,37 @@ test('uses custom Gemini base URL for local video upload', async () => {
   }
 });
 
+test('rejects local image when encoded data URL exceeds Base64 limit', async () => {
+  const tmp = mkdtempSync(join(tmpdir(), 'dpp-siliconflow-'));
+  const imgPath = join(tmp, 'small.bin');
+  writeFileSync(imgPath, Buffer.alloc(80, 0xAB));
+
+  try {
+    const response = await handleMcpMessage({
+      jsonrpc: '2.0',
+      id: 20,
+      method: 'tools/call',
+      params: {
+        name: 'analyze_images_siliconflow',
+        arguments: {
+          prompt: 'test',
+          images: [{ type: 'image_url', localPath: imgPath }],
+        },
+      },
+    }, {
+      env: {
+        SILICONFLOW_API_KEY: 'test-key',
+        MAX_IMAGE_DATA_URL_BYTES: '100',
+      },
+    });
+    assert.equal(response.result.isError, true);
+    assert.equal(response.result.structuredContent.error.code, 'invalid_media_input');
+    assert.match(response.result.structuredContent.error.message, /encoded data URL/);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
 test('exports the native host name expected by DeepSeek++', () => {
   assert.equal(HOST_NAME, 'com.deepseek_pp.multimodal');
 });
