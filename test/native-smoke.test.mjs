@@ -326,6 +326,19 @@ test('rejects local image when encoded data URL exceeds Base64 limit', async () 
   }
 });
 
+test('rejects tool names that collide with inherited object properties', async () => {
+  for (const name of ['toString', 'constructor', '__proto__', 'hasOwnProperty']) {
+    const response = await handleMcpMessage({
+      jsonrpc: '2.0',
+      id: 30,
+      method: 'tools/call',
+      params: { name, arguments: {} },
+    });
+    assert.equal(response.result.isError, true);
+    assert.equal(response.result.structuredContent.error.code, 'unknown_tool');
+  }
+});
+
 test('exports the native host name expected by DeepSeek++', () => {
   assert.equal(HOST_NAME, 'com.deepseek_pp.multimodal');
 });
